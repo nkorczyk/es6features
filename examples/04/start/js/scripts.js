@@ -40,6 +40,6 @@ let person3 = {
     [fnName]() {
         return this.firstName + " " + this.lastName;
     }
-}
-;
+};
+
 console.log(person3.getFullName());
