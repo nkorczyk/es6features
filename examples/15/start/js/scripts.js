@@ -10,3 +10,17 @@ let person = {
         list: [2, 7, 3]
     }
 };
+
+let {
+    firstName: fName,
+    age,
+    job: {
+        name: jobName,
+        experience: jobExperience
+    },
+    favNumbers: {
+        list: [, second]
+    }
+} = person || {};
+
+console.log(fName, age, jobName, jobExperience, second);
