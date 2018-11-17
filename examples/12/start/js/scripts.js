@@ -33,3 +33,11 @@ function reverse(str = "") {
 }
 
 console.log(reverse("Norbert"));
+
+let sentence = "My name is Norbert";
+
+function reverseSentence(string = "") {
+    return string.split("").reverse().join("").split(" ").reverse().join(" ");
+}
+
+console.log(reverseSentence(sentence));
