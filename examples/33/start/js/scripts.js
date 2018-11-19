@@ -34,6 +34,20 @@ class Collection {
 
     }
 
+    [Symbol.iterator]() {
+        var models = this.models,
+            index = 0;
+        
+        return {
+            next: function() {
+                return {
+                    done: (index === models.length) ? true : false,
+                    value: models[index++]
+                };
+            }
+        };
+    }
+
     static hasIterator(obj) {
         return obj && typeof obj[Symbol.iterator] === "function";
     }
@@ -41,3 +55,17 @@ class Collection {
 }
 
 const USERS = window.USERS;
+
+let users = new Collection(USERS);
+
+// console.log([...users]);
+
+[...users]
+    .filter(user => user.get("email").endsWith(".biz"))
+    .forEach(user => user.set("email", user.get("email").replace(".biz", ".org")));
+
+for (let user of users) {
+    console.log(user.get("email"));
+}
+
+// console.log(biz);
