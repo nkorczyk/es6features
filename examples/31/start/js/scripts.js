@@ -14,10 +14,24 @@ let it = {
     }
 };
 
-let iterator = it[Symbol.iterator]();
+// let iterator = it[Symbol.iterator]();
 
-for(var o = iterator.next(); o.done !== true; o = iterator.next()) {
+// for(var o = iterator.next(); o.done !== true; o = iterator.next()) {
 
-    console.log(o.value);
+//     console.log(o.value);
 
+// }
+
+// for (let value of it) {
+//     console.log(value); 
+// }
+
+// for (let ch of "Piotr") {
+//     console.log(ch);
+// }
+
+var lis = document.querySelectorAll(".edu-content ul li");
+
+for (let li of lis) {
+    li.style.color = "#ff0000";
 }
