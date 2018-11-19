@@ -27,6 +27,17 @@ class Person {
         return `${this.firstName} ${this.lastName}`;
     }
 
+    static [Symbol.hasInstance](obj) {
+        return false;
+    }
+
+    get [Symbol.toStringTag]() {
+        return "Person";
+    }
+
+    [Symbol.toPrimitive]() {
+        return this.sayHello();
+    }
 }
 
 class Employee extends Person {
@@ -40,6 +51,14 @@ class Employee extends Person {
         return `Nazywam się ${super.sayHello()} i pracuję jako ${this.position}.`;
     }
 
+    static [Symbol.hasInstance](obj) {
+        return obj.constructor === Employee;
+    }
 }
 
 let employee1 = new Employee("Jan", "Kowalski", "programista");
+
+console.log(employee1 instanceof Person);
+console.log(employee1 instanceof Employee);
+
+console.log("Object is " + employee1);
