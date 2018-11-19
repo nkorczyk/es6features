@@ -6,7 +6,7 @@ let it = {
             index = 0;
 
         return {
-            next: function() {
+            next: function () {
                 return {
                     done: (index === numbers.length) ? true : false,
                     value: numbers[index++]
@@ -15,3 +15,15 @@ let it = {
         };
     }
 };
+
+// console.log(Math.max(...numbers));
+console.log(Math.max(...it));
+console.log([...it]);
+
+console.log([..."Piotr"]);
+
+var lis = document.querySelectorAll(".edu-content ul li");
+
+[...lis]
+    .filter(li => li.textContent.includes("2"))
+    .forEach(li => li.style.fontWeight = "bold");
