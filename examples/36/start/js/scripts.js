@@ -14,11 +14,15 @@ function makeRequest(url, gen) {
 
     let xhr = it.next().value;
 
-    xhr.onload = function() {
-        if(xhr.status === 200) {
+    xhr.onload = function () {
+        if (xhr.status === 200) {
             it.next(xhr.responseText);
         }
     };
+
+    xhr.onError = function () {
+        it.throw(new Error("Wystąpił błąd"));
+    }
 
     xhr.send();
 
@@ -28,10 +32,13 @@ function *showData(url) {
 
     let output = document.querySelector("#pre-36");
 
-    let result = yield ajax(url);
+    try {
+        let result = yield ajax(url);
 
-    output.textContent = result;
-
+        output.textContent = result;
+    } catch (error) {
+        output.textContent = error.message;
+    }
 }
 
-makeRequest("http://code.eduweb.pl/kurs-es6/json/", showData);
+makeRequest("ttp://code.eduweb.pl/kurs-es6/json/", showData);
