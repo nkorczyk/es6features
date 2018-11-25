@@ -1,25 +1,34 @@
+const CACHE = {};
+
 function $(selector) {
     return document.querySelector(selector);
 }
 
 function getJSON(url) {
 
+    if (CACHE[url] !== undefined) {
+        console.log("Zwracam dane z pamięci podręcznej")
+        //return Promise.resolve(CACHE[url]);
+        return Promise.reject(new Error("Nie można pobierać tych smaych danych po raz kolejny"))
+    }
+
     let xhr = new XMLHttpRequest();
 
     xhr.open("GET", url);
 
-    let p = new Promise(function(resolve, reject) {
+    let p = new Promise(function (resolve, reject) {
 
-        xhr.onload = function() {
-            if(xhr.status === 200) {
+        xhr.onload = function () {
+            if (xhr.status === 200) {
                 resolve(xhr.responseText);
+                CACHE[url] = xhr.responseText;
             } else {
-                reject( new Error("Wystąpił błąd") );
+                reject(new Error("Wystąpił błąd"));
             }
         };
 
-        xhr.onerror = function() {
-            reject( new Error("Wystapił błąd") );
+        xhr.onerror = function () {
+            reject(new Error("Wystapił błąd"));
         };
 
     });
@@ -30,7 +39,7 @@ function getJSON(url) {
 
 }
 
-$("#btn-41").onclick = function() {
+$("#btn-41").onclick = function () {
 
     getJSON("http://code.eduweb.pl/kurs-es6/json/")
         .then(json => {
